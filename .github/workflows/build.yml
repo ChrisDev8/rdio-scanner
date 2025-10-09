@@ -1,7 +1,8 @@
 name: Rdio-Scanner
 
 on: 
-  release: [published]
+  release: 
+    types: [published]
 
 jobs:
   build:
