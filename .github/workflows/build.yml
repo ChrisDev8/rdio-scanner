@@ -22,18 +22,18 @@ jobs:
     - name: Install other build requirements
       run: |
         sudo apt update
-        sudo apt install -y build-essential pandoc podman unzip
+        sudo apt install -y build-essential pdflatex pandoc podman unzip
     - name: Build with make
       run: make
     - name: Upload build artifacts (zip files)
       uses: actions/upload-artifact@v4
       with:
         name: rdio-scanner-zips
-        path: ./rdio-scanner/dist/*.zip
+        path: ./dist/*.zip
     - name: Upload release assets to GitHub
       uses: softprops/action-gh-release@v2
       with:
-        files: ./rdio-scanner/dist/*.zip
+        files: ./dist/*.zip
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
                 
