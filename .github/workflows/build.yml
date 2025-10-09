@@ -1,0 +1,42 @@
+name: Rdio-Scanner
+
+on: release
+
+jobs:
+  build:
+    name: Bulds rdio-scanner
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    - name: Setup Node.js environment
+      uses: actions/setup-node@v5.0.0
+    - name: Setup Go environment
+      uses: actions/setup-go@v6.0.0
+    - name: Setup TeX Live
+      # You may pin to the exact commit or the version.
+      # uses: paolobrasolin/setup-texlive-action@6c8890953bfac44500c78adfe5257a8831be08cd
+      uses: paolobrasolin/setup-texlive-action@v1
+    - name: Setup pandoc
+      uses: nikeee/setup-pandoc@master
+    - name: Install Podman
+      # You may pin to the exact commit or the version.
+      # uses: gacts/install-podman@96e73075ee4b6669429c80458d063924472fb04d
+      uses: gacts/install-podman@v1.1.1
+    - name: Build with make
+      run: |
+        cd rdio-scanner
+        make
+    - name: Upload build artifacts (zip files)
+      uses: actions/upload-artifact@v4
+      with:
+        name: rdio-scanner-zips
+        path: ./rdio-scanner/dist/*.zip
+    - name: Upload release assets to GitHub
+      uses: softprops/action-gh-release@v2
+      with:
+        files: ./rdio-scanner/dist/*.zip
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                
+                
