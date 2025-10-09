@@ -22,7 +22,7 @@ jobs:
     - name: Install other build requirements
       run: |
         sudo apt update
-        sudo apt install -y build-essential pdflatex pandoc podman unzip
+        sudo apt install -y build-essential texlive-extra-utils texlive-latex-extra pandoc podman unzip
     - name: Build with make
       run: make
     - name: Upload build artifacts (zip files)
