@@ -6,7 +6,7 @@ on:
 
 jobs:
   build:
-    name: Bulds rdio-scanner
+    name: Build rdio-scanner
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repository
@@ -15,18 +15,14 @@ jobs:
       uses: actions/setup-node@v5.0.0
     - name: Setup Go environment
       uses: actions/setup-go@v6.0.0
-    - name: Setup TeX Live
+    - name: Setup TeXLive Action 2
+      # You may pin to the exact commit or the version.
+      # uses: TeX-Live/setup-texlive-action@5ead3060cb9c2d6bf985c23b38a30669a13a3f3c
+      uses: TeX-Live/setup-texlive-action@v3.4.2
+    - name: Install other build requirements
       run: |
         sudo apt update
-        sudo apt install -y texlive-full
-    - name: Setup pandoc
-      run: |
-        sudo apt update
-        sudo apt install -y pandoc pandoc-pdf
-    - name: Install Podman
-      run: |
-        sudo apt update
-        sudo apt install -y podman unzip
+        sudo apt install -y build-essential pandoc podman unzip
     - name: Build with make
       run: |
         cd rdio-scanner
